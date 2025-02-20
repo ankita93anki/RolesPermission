@@ -34,13 +34,16 @@
                                       {{ \carbon\carbon::parse($permission->created_at)->format('d M, Y')}}
                                 </td>
                                 <td class="px-6 py-3 text-center">
-                                       <a href="{{ route('permissions.create')}}" class="bg-slate-700 text-sm rounded-md text-white px-5 py-3">Edit</a>|<a href="{{ route('permissions.create')}}" class="bg-red-700 text-sm rounded-md text-white px-5 py-3">Delete</a>
+                                       <a href="{{ route('permissions.edit', $permission->id)}}" class="bg-slate-700 text-sm rounded-md text-white px-5 py-3">Edit</a>|<a href="{{ route('permissions.edit',$permission->id)}}" class="bg-red-700 text-sm rounded-md text-white px-5 py-3">Delete</a>
                                 </td>
                             </tr>
                        @endforeach
                     @endif
                 </tbody>
             </table>
+            <div class="my-3">
+                 {{ $permissions->links() }}
+            </div>
         </div>
     </div>
 </x-app-layout>
