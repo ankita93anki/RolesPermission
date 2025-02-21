@@ -17,7 +17,7 @@ class PermissionController extends Controller
         ]);
     }
 
-    //this method will show create permission page 
+    //this method will show create permission page
     public function create()
     {
         return view(view: 'permissions.create');
@@ -25,7 +25,7 @@ class PermissionController extends Controller
     }
 
     //this method will store permission
-    public function store(Request $request)  
+    public function store(Request $request)
     {
         $validator = Validator::make($request->all(),[
             'name' => 'required|unique:permissions|min:3'
@@ -39,7 +39,7 @@ class PermissionController extends Controller
         }
     }
 
-    //this method will edit a permission 
+    //this method will edit a permission
     public function edit($id)
     {
         $permission = Permission::findOrFail($id);
@@ -48,15 +48,28 @@ class PermissionController extends Controller
         ]);
     }
 
-    //this method will update a permission 
-    public function update()
+    //this method will update a permission
+    public function update($id, Request $request)
     {
+        $permission = Permission::findOrFail($id);
 
+        $validator = Validator::make($request->all(),[
+            'name' => 'required|unique:permissions,name, '.$id.',id|min:3'
+        ]);
+
+        if($validator->passes()) {
+              $permission->name = $request->name;
+              $permission->save();
+              return redirect()->route('permissions.index')->with('success','Permission Updated Successfully');
+        } else {
+            return redirect()->route('permissions.edit', $id)
+            ->withInput()->withErrors($validator);
+        }
     }
 
     //this method will destroy a permission
     public function delete()
     {
-        
+
     }
 }
