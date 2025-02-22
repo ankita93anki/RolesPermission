@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\RoleController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,6 +24,13 @@ Route::middleware('auth')->group(function () {
       Route::post('/permissions/create', [PermissionController::class, 'store'])->name('permissions.store');
       Route::get('/permissions/{id}/edit', [PermissionController::class,'edit'])->name('permissions.edit');
        Route::post('/permissions/{id}', [PermissionController::class,'update'])->name('permissions.update');
+
+       //Roles
+        Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
+        Route::get('/roles/create', [RoleController::class, 'create'])->name('roles.create');
+        Route::post('/roles/create', [RoleController::class, 'store'])->name('roles.store');
+
+        
 });
 
 require __DIR__.'/auth.php';
